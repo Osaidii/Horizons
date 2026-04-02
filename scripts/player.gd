@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody3D
 
 @export_category("Simple")
@@ -9,13 +10,18 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
+@onready var interaction_checker: RayCast3D = $"Head/Camera3D/Interaction Checker"
 
 var t_bob := 0.0
 
+# Private Funcs
+
 func _ready() -> void:
+	# No Mouse
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
+	# Camera System
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
@@ -25,24 +31,43 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		
+	
+	# Movement System
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if is_on_floor():
-		
-		if direction:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
-		else:
-			velocity.x = lerp(velocity.x, direction.x * SPEED, delta * 7.0)
-			velocity.z = lerp(velocity.z, direction.z * SPEED, delta * 7.0)
+	if direction.length() > 0:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+	else:
+		velocity.x = lerp(velocity.x, direction.x * SPEED, delta * 7.0)
+		velocity.z = lerp(velocity.z, direction.z * SPEED, delta * 7.0)
 	
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _headbob(t_bob)
-
+	
+	# Interaction System
+	if interaction_checker.is_colliding():
+		var target = interaction_checker.get_collider()
+		var is_interactable = _interact_check(target)
+		
+		# Continue Signals HERE !!!!!!!!!!!!!!
+		
 	move_and_slide()
 
 func _headbob(time) -> Vector3:
+	# Headbob System
 	var pos := Vector3.ZERO
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	return pos
+
+func _interact_check(provided_collision) -> bool:
+	var current_check = provided_collision
+	for i in range(5):
+		if current_check == null:
+			break
+		if current_check is Interactable:
+			return true
+		current_check = current_check.get_parent()
+	return false
+
+# Public Funcs

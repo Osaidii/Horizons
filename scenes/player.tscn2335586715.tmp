@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bio3vixplfbis" path="res://scripts/flash_light.gd" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dttee4eqtnbm0" path="res://assets/Flashlight/FlashLight_and_Battery_flashlight_base_color.png" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://bt13ttfwig72i" path="res://assets/Flashlight/FlashLight_and_Battery_flashlight_luminance.png" id="3_dqkch"]
-[ext_resource type="AudioStream" uid="uid://ceod0mk8kl805" path="res://assets/Sounds/Flashlight Button Sound.mp3" id="5_qlg0r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 
@@ -88,7 +87,6 @@ shadow_mesh = SubResource("ArrayMesh_d1urp")
 script = ExtResource("1_3vyb7")
 
 [node name="Capsule" type="MeshInstance3D" parent="." unique_id=2124854759]
-visible = false
 mesh = SubResource("CapsuleMesh_u8vuu")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=650573756]
@@ -98,11 +96,13 @@ shape = SubResource("CapsuleShape3D_3vyb7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49078333, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=318981745]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 
 [node name="FlashLight" type="Node3D" parent="Head/Camera3D" unique_id=162626823]
-transform = Transform3D(0.014268912, 0.026900113, -0.9995364, 0.17720087, -0.9838833, -0.023949118, -0.9840714, -0.17677703, -0.018805709, -0.29451442, -0.24865165, -0.473067)
+transform = Transform3D(0.051974278, -0.12487632, -0.9908099, 0.19356649, -0.9720756, 0.13266891, -0.9797094, -0.19868302, -0.026351051, -0.34175727, -0.5974565, -0.45283526)
 script = ExtResource("2_dqkch")
+ENERGY = null
+BATTERY_DRAIN_PER_SECOND = null
+TRANSITION_TIMER = null
 NORMAL_POSITION = Vector3(-0.29451442, -0.24865165, -0.473067)
 REST_POSITION = Vector3(-0.34175727, -0.5974565, -0.45283526)
 
@@ -125,40 +125,17 @@ spot_range = 500.0
 spot_attenuation = 2.0
 spot_angle = 50.0
 
-[node name="Wait Time" type="Timer" parent="Head/Camera3D/FlashLight" unique_id=791087425]
+[node name="Transition Timer" type="Timer" parent="Head/Camera3D/FlashLight" unique_id=1836048549]
 one_shot = true
-
-[node name="Button Sound" type="AudioStreamPlayer3D" parent="Head/Camera3D/FlashLight" unique_id=635287198]
-transform = Transform3D(0.014268964, 0.1772009, -0.984071, 0.02690002, -0.98388314, -0.17677693, -0.9995361, -0.023949206, -0.01880566, -0.504235, 0.16252439, -0.29747528)
-stream = ExtResource("5_qlg0r")
-volume_db = 3.0
-
-[node name="Interaction Checker" type="RayCast3D" parent="Head/Camera3D" unique_id=309476925]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4126301e-05, 0)
-target_position = Vector3(0, 0, -2)
-collision_mask = 4
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=998927641]
 
-[node name="BatteryBar" type="Control" parent="HUD" unique_id=183333021]
-layout_mode = 3
-anchors_preset = 0
+[node name="BatteryBar" type="Node2D" parent="HUD" unique_id=1643487504]
 
 [node name="ProgressBar" type="ProgressBar" parent="HUD/BatteryBar" unique_id=1144310881]
-layout_mode = 0
 offset_left = 468.0
 offset_top = 525.0
 offset_right = 697.0
 offset_bottom = 555.0
 
-[node name="Crosshair" type="Control" parent="HUD" unique_id=808951963]
-layout_mode = 3
-anchors_preset = 0
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HUD/Crosshair" unique_id=391514539]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 647.0
-
-[node name="Marker2D" type="Marker2D" parent="HUD/Crosshair" unique_id=935373149]
-position = Vector2(1151.51, 329)
+[connection signal="timeout" from="Head/Camera3D/FlashLight/Transition Timer" to="Head/Camera3D/FlashLight" method="_on_transition_timer_timeout"]

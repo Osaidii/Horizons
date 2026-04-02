@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://luq258vtismx" path="res://icon.svg" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://d3duyjui5y1aj" path="res://scenes/player.tscn" id="2_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://dw4hlf8g0xwx1" path="res://scenes/battery.tscn" id="3_4wyf3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwgxs"]
 albedo_texture = ExtResource("1_nnsk1")
@@ -14,7 +15,12 @@ uv1_triplanar = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18197632, -0.41137695, 0.03338623)
 material_override = SubResource("StandardMaterial3D_rwgxs")
 use_collision = true
+collision_layer = 3
+collision_mask = 3
 size = Vector3(26.064392, 0.1772461, 29.178833)
 
 [node name="Player" parent="." unique_id=989809469 instance=ExtResource("2_rwgxs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76699615, 2)
+
+[node name="Battery" parent="." unique_id=1838336097 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95181537, 0.7903054, -0.46712685)
