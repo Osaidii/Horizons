@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://vkghn8i5nt7m"]
+
+[ext_resource type="Texture2D" uid="uid://luq258vtismx" path="res://icon.svg" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://d3duyjui5y1aj" path="res://scenes/player.tscn" id="2_rwgxs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwgxs"]
+albedo_texture = ExtResource("1_nnsk1")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[node name="World" type="Node3D" unique_id=1076158626]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1154814641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18197632, -0.41137695, 0.03338623)
+material_override = SubResource("StandardMaterial3D_rwgxs")
+use_collision = true
+size = Vector3(26.064392, 0.1772461, 29.178833)
+
+[node name="Player" parent="." unique_id=989809469 instance=ExtResource("2_rwgxs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
