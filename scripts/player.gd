@@ -19,6 +19,10 @@ extends CharacterBody3D
 var t_bob := 0.0
 var is_crouching := false
 var current_speed: float
+var direction
+
+signal pick
+signal interact
 
 # Private Funcs
 
@@ -36,6 +40,10 @@ func _input(event: InputEvent) -> void:
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	
+	# Interaction System
+	if event.is_action_pressed("interact"):
+		_interact()
+	
 	# Crouch Input
 	if event.is_action_pressed("crouch") and !is_crouching:
 		crouch(true)
@@ -49,7 +57,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Movement System
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
-	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction.length() > 0:
 		velocity.x = direction.x * current_speed
 		velocity.z = direction.z * current_speed
@@ -57,45 +65,77 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerp(velocity.x, direction.x * current_speed, delta * 7.0)
 		velocity.z = lerp(velocity.z, direction.z * current_speed, delta * 7.0)
 	
+	# Head Bob
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _headbob(t_bob)
-	
-	# Interaction System
-	if interaction_checker.is_colliding():
-		var target = interaction_checker.get_collider()
-		var is_interactable = _interact_check(target)
-		
-		# Continue Signals HERE !!!!!!!!!!!!!!
 	
 	move_and_slide()
 
 func _headbob(time) -> Vector3:
-	# Headbob System
+	# Headbob Up and Down
 	var pos := Vector3.ZERO
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	return pos
 
-func _interact_check(provided_collision) -> bool:
+func _interact_check(provided_collision):
+	# Check for Crosshair on Interactable
 	var current_check = provided_collision
 	for i in range(5):
 		if current_check == null:
 			break
 		if current_check is Interactable:
-			return true
+			return [true, current_check]
 		current_check = current_check.get_parent()
-	return false
+	return [false, current_check]
+
+func _pickable_check(provided_collision):
+	# Check for Crosshair on Pickable
+	var current_check = provided_collision
+	for i in range(5):
+		if current_check == null:
+			break
+		if current_check is Pickable:
+			return [true, current_check]
+		current_check = current_check.get_parent()
+	return [false, current_check]
+
+func _interact() -> void:
+	# Send Signal if Interactable
+	if interaction_checker.is_colliding():
+		# Check if Node if Pickable or Interactable
+		var target := interaction_checker.get_collider()
+		var pick_answer_array = _pickable_check(target)
+		var is_pickable: bool = pick_answer_array[0]
+		var node_that_is_pickable = pick_answer_array[1]
+		var is_interactable: bool
+		var node_that_is_interactable
+		if !is_pickable:
+			var interact_answer_array = _interact_check(target)
+			is_interactable = interact_answer_array[0]
+			node_that_is_interactable = interact_answer_array[1]
+		# Trigger Interaction
+		if is_pickable:
+			if Input.is_action_pressed("interact"):
+				node_that_is_pickable._pick()
+			pass
+		if is_interactable:
+			if Input.is_action_pressed("interact"):
+				node_that_is_interactable._interact()
+			pass
 
 # Public Funcs
 
 func crouch(state) -> void:
 	if state == true:
-		current_speed = CROUCH_SPEED
 		simple_animations.play("crouch")
 		is_crouching = true
+		await get_tree().create_timer(0.2).timeout
+		current_speed = CROUCH_SPEED
 	else:
 		if crouch_check.is_colliding():
 			return
-		current_speed = SPEED
 		simple_animations.play_backwards("crouch")
+		await get_tree().create_timer(0.2).timeout
+		current_speed = SPEED
 		is_crouching = false
 		

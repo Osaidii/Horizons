@@ -28,14 +28,6 @@ collision_layer = 3
 collision_mask = 3
 size = Vector3(26.341278, 0.1772461, 27.77301)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="World" unique_id=1739176363]
-transform = Transform3D(-0.04166666, 2.3283067e-10, -0.9991421, -0.99725634, 0.0612402, 0.04158875, 0.061187085, 0.9981231, -0.0025516863, -5.7416153, 11.970355, -1.3011153)
-material_override = SubResource("StandardMaterial3D_rwgxs")
-use_collision = true
-collision_layer = 3
-collision_mask = 3
-size = Vector3(4.4402733, 0.087646484, 2.6017227)
-
 [node name="CSGBox3D2" type="CSGBox3D" parent="World" unique_id=1502799044]
 transform = Transform3D(-0.041666456, 0.9972563, -0.061187014, -0.99725634, -0.037759785, 0.063672215, 0.061187062, 0.063672215, 0.9960934, 11.787088, 12.058795, -0.739872)
 material_override = SubResource("StandardMaterial3D_rwgxs")

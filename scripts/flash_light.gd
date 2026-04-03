@@ -3,21 +3,18 @@ extends Node3D
 
 @export_category("Data")
 @export var ENERGY := 5
-@export var BATTERY_DRAIN_PER_SECOND := 1
+@export var SECONDS_PER_BATTERY_BAR := 20
 @export var WAIT_TIME := 1
 @export var TRANSITION_TIME := 0.7
 @export_category("Normal Transform")
 @export var NORMAL_POSITION := Vector3.ZERO
 @export_category("Rest Transform")
 @export var REST_POSITION := Vector3.ZERO
-@export_category("Vars for external use")
-@export var battery: float
 
 @onready var light: SpotLight3D = $Light
 @onready var mesh: Node3D = $Mesh
 @onready var wait_timer: Timer = $"Wait Time"
 @onready var button_sound: AudioStreamPlayer3D = $"Button Sound"
-@onready var bar: ProgressBar = $"../../../HUD/BatteryBar/Bar"
 
 var is_light_on := false
 
@@ -49,10 +46,6 @@ func _process(delta: float) -> void:
 		battery = clamp(battery, 0, 100)
 	if is_light_on:
 		battery -= BATTERY_DRAIN_PER_SECOND * delta
-	
-	# Bar Logic
-	bar.value = battery
-	
 
 # Public Funcs
 

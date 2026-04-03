@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dw4hlf8g0xwx1"]
 
 [ext_resource type="Texture2D" uid="uid://rwgk2e8vuxhd" path="res://assets/Flashlight/FlashLight_and_Battery_battery_base_color.png" id="1_bavnn"]
+[ext_resource type="Script" uid="uid://di1bi6d7e7frl" path="res://scripts/battery.gd" id="1_ytmnr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sxyhm"]
 resource_name = "Battery"
@@ -53,6 +54,7 @@ radius = 0.061035156
 [node name="Battery" type="RigidBody3D" unique_id=890487807]
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("1_ytmnr")
 
 [node name="battery" type="MeshInstance3D" parent="." unique_id=1229997683]
 transform = Transform3D(0.15, 0, 0, 0, -6.5567085e-09, -0.15, 0, 0.15, -6.5567085e-09, 0, 0, 0)
