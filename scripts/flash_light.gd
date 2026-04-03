@@ -3,9 +3,9 @@ extends Node3D
 
 @export_category("Data")
 @export var ENERGY := 5
-@export var BATTERY_DRAIN_PER_SECOND := 10
-@export var WAIT_TIME := 1.2
-@export var TRANSITION_TIME := 0.6
+@export var BATTERY_DRAIN_PER_SECOND := 1
+@export var WAIT_TIME := 1
+@export var TRANSITION_TIME := 0.7
 @export_category("Normal Transform")
 @export var NORMAL_POSITION := Vector3.ZERO
 @export_category("Rest Transform")
@@ -17,7 +17,7 @@ extends Node3D
 @onready var mesh: Node3D = $Mesh
 @onready var wait_timer: Timer = $"Wait Time"
 @onready var button_sound: AudioStreamPlayer3D = $"Button Sound"
-@onready var interaction_checker: RayCast3D = $"../Interaction Checker"
+@onready var bar: ProgressBar = $"../../../HUD/BatteryBar/Bar"
 
 var is_light_on := false
 
@@ -37,34 +37,41 @@ func _input(event: InputEvent) -> void:
 		turn_light_on()
 
 func _process(delta: float) -> void:
+	# Battery ON / OFF Logic
 	if light.light_energy == ENERGY:
 		is_light_on = true
 	elif light.light_energy == 0:
 		is_light_on = false
+	
+	# Battery Logic
 	if battery <= 0:
 		turn_light_off()
 		battery = clamp(battery, 0, 100)
 	if is_light_on:
 		battery -= BATTERY_DRAIN_PER_SECOND * delta
+	
+	# Bar Logic
+	bar.value = battery
+	
 
 # Public Funcs
 
 func turn_light_on() -> void:
 	var tween = create_tween()
-	var tween2 = create_tween()
-	tween.tween_property(self, "position", NORMAL_POSITION, TRANSITION_TIME * 0.75).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "position", NORMAL_POSITION + Vector3(0, 0.02, 0), TRANSITION_TIME * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "position", NORMAL_POSITION, TRANSITION_TIME * 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	wait_timer.start()
-	await get_tree().create_timer(TRANSITION_TIME).timeout
+	await get_tree().create_timer(TRANSITION_TIME / 2).timeout
 	button_sound.play()
 	light.light_energy = ENERGY
 	is_light_on = true
 
 func turn_light_off() -> void:
 	wait_timer.start()
-	light.light_energy = 0
-	is_light_on = false
+	var tween = create_tween()
+	tween.tween_property(self, "position", REST_POSITION, TRANSITION_TIME * 0.75).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	await get_tree().create_timer(0.1).timeout
 	button_sound.play()
 	await get_tree().create_timer(0.1).timeout
-	var tween = create_tween()
-	var tween2 = create_tween()
-	tween.tween_property(self, "position", REST_POSITION, TRANSITION_TIME * 0.75).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	light.light_energy = 0
+	is_light_on = false
