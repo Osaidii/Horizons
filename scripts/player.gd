@@ -15,14 +15,13 @@ extends CharacterBody3D
 @onready var crosshair: Control = $HUD/Crosshair
 @onready var simple_animations: AnimationPlayer = $"Simple Animations"
 @onready var crouch_check: RayCast3D = $"Crouch Check"
+@onready var pick_up_instruction: RichTextLabel = $"HUD/Pick Up Instruction"
+@onready var interact_instruction: RichTextLabel = $"HUD/Interact Instruction"
 
 var t_bob := 0.0
 var is_crouching := false
 var current_speed: float
 var direction
-
-signal pick
-signal interact
 
 # Private Funcs
 
@@ -39,10 +38,6 @@ func _input(event: InputEvent) -> void:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
-	
-	# Interaction System
-	if event.is_action_pressed("interact"):
-		_interact()
 	
 	# Crouch Input
 	if event.is_action_pressed("crouch") and !is_crouching:
@@ -69,6 +64,10 @@ func _physics_process(delta: float) -> void:
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _headbob(t_bob)
 	
+	# Check for Interaction
+	_interact()
+	
+	# Move Player
 	move_and_slide()
 
 func _headbob(time) -> Vector3:
@@ -102,6 +101,7 @@ func _pickable_check(provided_collision):
 func _interact() -> void:
 	# Send Signal if Interactable
 	if interaction_checker.is_colliding():
+		
 		# Check if Node if Pickable or Interactable
 		var target := interaction_checker.get_collider()
 		var pick_answer_array = _pickable_check(target)
@@ -113,15 +113,21 @@ func _interact() -> void:
 			var interact_answer_array = _interact_check(target)
 			is_interactable = interact_answer_array[0]
 			node_that_is_interactable = interact_answer_array[1]
+		
+		# Instructions
+		pick_up_instruction.visible = is_pickable
+		interact_instruction.visible = is_interactable
+		
 		# Trigger Interaction
 		if is_pickable:
 			if Input.is_action_pressed("interact"):
 				node_that_is_pickable._pick()
-			pass
 		if is_interactable:
 			if Input.is_action_pressed("interact"):
 				node_that_is_interactable._interact()
-			pass
+	else:
+		pick_up_instruction.visible = false
+		interact_instruction.visible = false
 
 # Public Funcs
 
@@ -138,4 +144,3 @@ func crouch(state) -> void:
 		await get_tree().create_timer(0.2).timeout
 		current_speed = SPEED
 		is_crouching = false
-		

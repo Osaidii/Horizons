@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://d2exv7100p6w6" path="res://scripts/battery_bar.gd" id="6_smehm"]
 [ext_resource type="Script" uid="uid://bau77h8ti7t8g" path="res://scripts/crosshair.gd" id="6_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://cx4bhnsj5upgv" path="res://assets/Battery Icons.svg" id="7_ur7pv"]
+[ext_resource type="FontFile" uid="uid://c5ngj2wws5wgq" path="res://assets/Game Font.ttf" id="9_ur7pv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 
@@ -182,13 +183,8 @@ transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 [node name="FlashLight" type="Node3D" parent="Head/Camera3D" unique_id=162626823]
 transform = Transform3D(0.014268912, 0.026900113, -0.9995364, 0.17720087, -0.9838833, -0.023949118, -0.9840714, -0.17677703, -0.018805709, -0.29451442, -0.24865165, -0.473067)
 script = ExtResource("2_dqkch")
-ENERGY = null
-BATTERY_DRAIN_PER_SECOND = null
-WAIT_TIME = null
-TRANSITION_TIME = null
 NORMAL_POSITION = Vector3(-0.29451442, -0.24865165, -0.473067)
 REST_POSITION = Vector3(-0.34175727, -0.5974565, -0.45283526)
-battery = null
 
 [node name="Mesh" type="Node3D" parent="Head/Camera3D/FlashLight" unique_id=1223794671]
 
@@ -572,6 +568,42 @@ region_rect = Rect2(1152, 72, 320, 464)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("6_tuyoq")
+
+[node name="Pick Up Instruction" type="RichTextLabel" parent="HUD" unique_id=1404603178]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -134.25
+offset_top = -28.0
+offset_right = 134.25
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("9_ur7pv")
+theme_override_font_sizes/normal_font_size = 26
+text = "Press E to Pick Up"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Interact Instruction" type="RichTextLabel" parent="HUD" unique_id=249006071]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -133.75
+offset_top = -27.0
+offset_right = 133.75
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("9_ur7pv")
+theme_override_font_sizes/normal_font_size = 26
+text = "Press E to Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Simple Animations" type="AnimationPlayer" parent="." unique_id=1372057973]
 libraries/ = SubResource("AnimationLibrary_smehm")
