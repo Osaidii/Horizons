@@ -11,7 +11,6 @@ func _process(delta: float) -> void:
 func _number_to_output(bars) -> void:
 	var complete_bars = floor(flash_light.BATTERY / 4)
 	var rest = flash_light.BATTERY % 4
-	print(complete_bars)
 	if complete_bars > 0:
 		for i in range(complete_bars):
 			get_child(i).get_child(3).visible = true

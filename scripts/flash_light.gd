@@ -19,6 +19,7 @@ extends Node3D
 @onready var mesh: Node3D = $Mesh
 @onready var wait_timer: Timer = $"Wait Time"
 @onready var button_sound: AudioStreamPlayer3D = $"Button Sound"
+@onready var battery_decrease_timer: Timer = $"Battery Decrease Timer"
 
 var is_light_on := false
 
@@ -53,6 +54,14 @@ func _process(delta: float) -> void:
 	if Shortcuts.increase_flashlight_battery > 0:
 		increase_battery(Shortcuts.increase_flashlight_battery)
 		Shortcuts.increase_flashlight_battery = 0
+	
+	# Max and Min Battery
+	BATTERY = clamp(BATTERY, MAX_BATTERY, 0)
+	
+	# Decrease Battery
+	if battery_decrease_timer.is_stopped():
+		battery_decrease_timer.wait_time = SECONDS_PER_BATTERY_BAR
+		battery_decrease_timer.start() 
 
 # Public Funcs
 
