@@ -3,12 +3,18 @@
 [ext_resource type="Script" uid="uid://cbnokgtim8dkq" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bio3vixplfbis" path="res://scripts/flash_light.gd" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dttee4eqtnbm0" path="res://assets/Flashlight/FlashLight_and_Battery_flashlight_base_color.png" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://c4pstqi2thtn0" path="res://assets/untitled_DefaultMaterial_baseColor.jpg" id="3_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://bt13ttfwig72i" path="res://assets/Flashlight/FlashLight_and_Battery_flashlight_luminance.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://dpmnb0ketvows" path="res://assets/untitled_DefaultMaterial_metallicRoughness.png" id="4_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://bpr3fd0ajvfbf" path="res://assets/untitled_DefaultMaterial_emissive.jpg" id="5_jej6c"]
 [ext_resource type="AudioStream" uid="uid://ceod0mk8kl805" path="res://assets/Sounds/Flashlight Button Sound.mp3" id="5_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://n8o7rtefcb37" path="res://assets/untitled_DefaultMaterial_normal.png" id="6_f1ej7"]
 [ext_resource type="Script" uid="uid://d2exv7100p6w6" path="res://scripts/battery_bar.gd" id="6_smehm"]
 [ext_resource type="Script" uid="uid://bau77h8ti7t8g" path="res://scripts/crosshair.gd" id="6_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://cx4bhnsj5upgv" path="res://assets/Battery Icons.svg" id="7_ur7pv"]
 [ext_resource type="FontFile" uid="uid://c5ngj2wws5wgq" path="res://assets/Game Font.ttf" id="9_ur7pv"]
+[ext_resource type="Script" uid="uid://cc1rvm0kd37t4" path="res://scripts/gameplay.gd" id="12_f1ej7"]
+[ext_resource type="Script" uid="uid://hvysouldik2c" path="res://scenes/crt-shader.gd" id="15_oprun"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 
@@ -88,47 +94,62 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_d1urp")
 
-[sub_resource type="Animation" id="Animation_tuyoq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Collision:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Head:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0.49078333, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Collision:shape:height")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2.0]
-}
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jilwc"]
+resource_name = "DefaultMaterial"
+cull_mode = 2
+albedo_texture = ExtResource("3_d2wvv")
+metallic = 1.0
+metallic_texture = ExtResource("4_3v2ag")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_3v2ag")
+roughness_texture_channel = 1
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("5_jej6c")
+normal_enabled = true
+normal_texture = ExtResource("6_f1ej7")
+ao_enabled = true
+ao_texture = ExtResource("4_3v2ag")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_djlrk"]
+_surfaces = [{
+"aabb": AABB(0.192155, 0.148677, -0.0306705, 0.061340988, 0.038812995, 0.0613406),
+"format": 34896613377,
+"index_count": 240,
+"index_data": PackedByteArray("HQAeABgAAQAYAB4AHQAYAB8AIAAfABgAGAABACAAAQACACAAAAAgAAIAAgABAAMAIAAAABUAHwAgABUABgAVAAAAIQADAAEAHgAhAAEAAwAhAAQAIQAeACIAHQAiAB4AHAAEACEAIgAcACEABAAcAAUAHAAiABAAHQAQACIAIwAFABwAEAAjABwABQAjAAcAIwAQACQAHQAkABAAGwAHACMAJAAbACMABwAbABEAGwAkACUAHQAlACQADgARABsAJQAOABsAEQAOABMADgAlACYAHQAmACUAJwATAA4AJgAnAA4AEwAnABQAJwAmABoAHQAaACYAKAAUACcAGgAoACcAFAAoABIAKAAaACkAHQApABoAFwASACgAKQAXACgAEgAXAA8AFwApACoAHQAqACkAKwAPABcAKgArABcADwArAAwAKwAqABkAHQAZACoALAAMACsAGQAsACsADAAsAAsALAAZAC0AHQAtABkACAALACwALQAIACwACwAIAAoAHQAuAC0ACAAtAC4AFgAKAAgALgAWAAgACgAWAAkAHQANAC4AFgAuAA0AHQAvAA0AHQAfAC8AFQAvAB8AMAANAC8ALwAVADAADQAwABYAMAAJABYAFQAGADAACQAwAAYA"),
+"lods": [0.0046025612, PackedByteArray("AAAVAAIABgAVAAAAAQACABUAAgABAAMAFQAGABYACQAWAAYACgAWAAkAAwABAAQAFgAKAAgACwAIAAoADAAIAAsADQAWAAgADQAVABYACAAMABcADwAXAAwAEgAXAA8AFAAXABIAFQANABgAGAABABUACAAZAA0AGAANABkAGQAIABcAGAAZABoAFwAaABkAFwAUAA4AGgAXAA4AEwAOABQAEQAOABMAGAAaABAADgAQABoAAQAYABAADgARABsAEAAOABsABwAbABEAEAAcAAEAEAAbABwAGwAHABwAHAAEAAEABQAcAAcABAAcAAUA"), 0.0338688, PackedByteArray("AAABAAIAAgABAAMAAwABAAQABAABAAUABgABAAAABQABAAcAAQAGAAgACQAIAAYACgAIAAkACwAIAAoADAAIAAsADQABAAgACAAMAA4ADQAIAA4ADwAOAAwADgAHAAEAAQANABAADgAQAA0AEAAOAAEABwAOABEAEgAOAA8AEQAOABMAFAAOABIAEwAOABQA")],
+"name": "DefaultMaterial",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 49,
+"vertex_data": PackedByteArray("+rAAAL4JAAADT9fKvgkAAP5/AAAAAAAAA08AAL4JAAB9JQAAfSUAAL4JAAADTwAAgdoAAH0lAAAAAAAA/38AAP//18r/fwAAQPYAAANPAAD//wAA/38AAED2AAD7sAAAgdoAAIHaAADNw///6WMAAH0l18qB2gAA+rAAAED2AAAxPP//6WMAAL4JAAD7sAAA/n8AAP//AAB9JQAAgdoAAANPAABA9gAA+rDXyr4JAABA9tfKA08AAPqw18pA9gAA/n///5o2AADls///5bMAAOlj///NwwAAvgnXyvuwAAC+CdfKA08AAP5/////fwAA6WP//zE8AAAVnP//MTwAAP5/18oAAAAAfSXXyn0lAAAZTP//GUwAAAAA18r/fwAAmjb///9/AAAxPP//FZwAABlM///lswAAA0/XykD2AAD+f9fK//8AAP5///9kyQAAFZz//83DAACB2tfKgdoAAED218r7sAAAzcP//xWcAABjyf///38AAOWz//8ZTAAAgdrXyn0lAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_oprun"]
+resource_name = "untitled_defaultMaterial_001"
+_surfaces = [{
+"aabb": AABB(0.192155, 0.148677, -0.0306705, 0.061340988, 0.038812995, 0.0613406),
+"attribute_data": PackedByteArray("05skmdKe/pxTnSSZ0p4kmVKgJJnSoSSZU5okmVGjJJlUl/6c1JgkmVSXJJlRpv6c0aQkmVGmJJnRpySZUKkkmdCqJJlQrCSZT6/+nM+tJJlPrySZ/5IsqSiT9KwFl8Gt/5Lvrz6ZWa3Tm/6c1Jj+nNKh/pzRpP6c0Kr+nKOY0K4MlouwCpdiq9KUpa6Elyyp25R0qkSRWa3fkUuq0pSlrtuUdKook/SsCpdiqwWXwa1BlY6sDpRSrniTuq2nlaeuKpMerBWUxKpBlY6sfZNaqxWUxKptlleuWJf9rFqXJ6x1lsmqsJV2qtuUdKpBlY6sdZbJqoSX769tlleuWJf9rKeVp65alyesdpSLsD6ZwqujmEuqDpRSrnWWyarfkdCueJO6rbCVdqoMlpCoRJHCq3aUkKgqkx6sFZTEqn2TWqtTnf6cUqD+nFOa/pxRo/6c0af+nFCp/pxQrP6cz63+nA=="),
+"format": 34896613399,
+"index_count": 240,
+"index_data": PackedByteArray("LAAtACcALAAuAC0ALAAnAC8ALAApAC4ALAAwACkALAAoADEAMgAzADAAMgA0ADMAMgAvADUAMgA1ACsAMgArADYAMgA2ADcAMgA3ACoAMgAqADgAMgA5ADoAOwA8ADkAFwA9AB8APQAXAD4AHwA/ABcAPgAgAD0APwAfABkAIAA+AEAAGQBBAD8AQABCACAAQQAZAEMAQgBAACIAQwAhAEEAIgAYAEIAIQBDAEQAGAAiAEUARABGACEARQBHABgARgBEACMARwBFAEgAIwBJAEYASAAlAEcASQAjAEoAJQBIABYASgAkAEkAFgBLACUAJABKAEwASwAWAE0ATABOACQATQAmAEsATgBMABUAJgBNAE8AFQBPAE4ATwAVACYAAABQAAIAAQACAFAAUAAAABoAAgABAAMABgAaAAAAUQADAAEAGgAGAFIAAwBRAAQACQBSAAYAHAAEAFEAUgAJABsACgAbAAkAGwAKAAgABAAcAAUAUwAFABwABQBTAAcAHQAHAFMABwAdAAwACwAMAB0ADAALAA0AVAANAAsADQBUAA4AVQAOAFQADgBVAA8AHgAPAFUADwAeABAAVgAQAB4AEABWABEAVwARAFYAEQBXABMAEgATAFcAEwASABQA"),
+"lods": [0.0046025612, PackedByteArray("AAAaAAIABgAaAAAAAQACABoAGgAGABsAAgABAAMACQAbAAYACgAbAAkAGwAKAAgAAwABAAQAHAAEAAEABAAcAAUABQAcAAcAHQAHABwABwAdAAwACwAMAB0ADAALAA0ADQALAA4AHgAOAAsADgAeAA8ADwAeABAAEAAeABEAEgARAB4AEQASABMAEwASABQAFwAfABkAFwAgAB8AGQAhABcAIAAXACIAIQAZACMAIgAYACAAIwAkACEAJAAjABUAGAAiABYAFQAWACQAFgAlABgAFgAVACYAFgAmACUAJwAoACkAJwAqACgAJwArACoA"), 0.0338688, PackedByteArray("AAABAAIAAgABAAMAAwABAAQABAABAAUABgABAAAABQABAAcAAQAGAAgACQAIAAYACgAIAAkACwAHAAEABwALAAwADAALAA0ADQALAA4ADgALAA8ADwALABAAEAALABEAEgARAAsAEQASABMAEwASABQAFQAWABcAFgAVABgAGAAXABYAFwAZABUAFwAYABkA")],
+"material": SubResource("StandardMaterial3D_jilwc"),
+"name": "DefaultMaterial",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 88,
+"vertex_data": PackedByteArray("+rAAAL4JABADT9fKvgkAEP5/AAAAAAAAA08AAL4JABB9JQAAfSX/H74JAAADT/8vgdoAAH0l/x8AAAAA/3//P///18r/f/8/QPYAAANP/y///wAA/3//P30l18qB2v9fvgkAAPuw/099JQAAgdr/XwNPAABA9v9v/n8AAP///n/6sAAAQPb/b4HaAACB2v9f///Xyv9//z9A9gAA+7D/T///AAD/f/8/fSXXyoHaFU8xPP//6WOqNs3D///pY9oyA0/Xyr4JWiv//9fK/3/zOvqw18q+CQAQQPbXygNP/y++CdfKA0//L74J18r7sP9P+rDXykD2/29A9tfKA093M/qw18q+CQQq5bP//+WzYEv+f///mjZFKfqw18pA9h9S6WP//83DlFS+CdfKA0+INr4J18r7sBdH/n///5o2kz/pY///zcOSPzE8///pY5M/5bP//+Wzkj/Nw///6WOSP/5/////f5I/6WP//zE8kz8ZTP//GUyTPxWc//8xPJI/mjb///9/kz8ZTP//5bOTP/5/////f5I/MTz//xWckj8ZTP//5bOTP+Wz//8ZTJI/Y8n///9/kj/Nw///FZySPxWc///Nw5M//n///2TJkz/pY///zcOSP/5/////f5I/FZz//83Dkz+B2tfKfSWVLeWz//8ZTDMtY8n///9/WjoVnP//MTznKc3D//8VnOVC/n/XygAAQylA9tfK+7A4Q4Ha18qB2l1L6WP//zE8WCsVnP//zcNCUn0l18p9JfQvGUz//xlM8y/+f///ZMm7Vf5/18r//7ZVAADXyv9/gD4DT9fKQPaZVJo2////f9A+GUz//+WzQ08xPP//FZxyR/5/18oAAAAAfSXXyn0l/x+B2tfKfSX/HwAA18r/f/8/A0/XykD2/2/+f9fK///+f4Ha18qB2v9fQPbXyvuw/0//fwAA/3////9/////f////3////9/////fwAA/3////9/AAD/fwAA/38AAP9/////f////3////9/////f////38AAP9/AAD/fwAA/38AAP9/AAAq4tSoZ+LuqtzYvnSK6+yWZdLqb/9/AAD/fwAA/3////9/////fwAAZNh2cmvv9YA30+1zUu5Wi9vdUHxf42GZWuO8qgfhDK8y6uWKMermijLq5Yox6uaKL+rnijHq5oo06uSKM+rlijDq5oox6uaKMurlijHq5oox6uaKMurlijHq5oov6ueKMOrmijPq5Yoy6uWKMermijHq5ooz6uWKXeIDePviFXqS0rhx6u0LgkvQLHEj7nSLU9BGcDXT9nMZ7LeWGd7Je4Lm2aKM5taid+M5ijPjUYqT4f6ul+XfmKTfL6/k31Koi97yrv9/////f////38AAP9/////f////3////9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_djlrk")
+
+[sub_resource type="QuadMesh" id="QuadMesh_f1ej7"]
 
 [sub_resource type="Animation" id="Animation_fjrip"]
-resource_name = "crouch"
+resource_name = "Crouch"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -167,10 +188,78 @@ tracks/2/keys = {
 "values": [Vector3(0, 0.49078333, 0), Vector3(0, -0.09, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_jej6c"]
+resource_name = "Light Button Click"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Camera3D/FlashLight/Mesh/Button:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.23562849, 0.034038767, 0.0031219125), Vector3(-0.236, 0.038, 0.003), Vector3(-0.23562849, 0.034038767, 0.0031219125)]
+}
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Collision:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.49078333, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Collision:shape:height")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head/Camera3D/FlashLight/Mesh/Button:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.23562849, 0.034038767, 0.0031219125)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_smehm"]
 _data = {
-&"RESET": SubResource("Animation_tuyoq"),
-&"crouch": SubResource("Animation_fjrip")
+&"Crouch": SubResource("Animation_fjrip"),
+&"Light Button Click": SubResource("Animation_jej6c"),
+&"RESET": SubResource("Animation_tuyoq")
 }
 
 [node name="Player" type="CharacterBody3D" unique_id=989809469]
@@ -185,6 +274,9 @@ mesh = SubResource("CapsuleMesh_u8vuu")
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=650573756]
 shape = SubResource("CapsuleShape3D_3vyb7")
 
+[node name="Crouch Check" type="RayCast3D" parent="." unique_id=981016428]
+target_position = Vector3(0, 1, 0)
+
 [node name="Head" type="Node3D" parent="." unique_id=641397911]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49078333, 0)
 
@@ -192,15 +284,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49078333, 0)
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 
 [node name="FlashLight" type="Node3D" parent="Head/Camera3D" unique_id=162626823]
-transform = Transform3D(0.014268912, 0.026900113, -0.9995364, 0.17720087, -0.9838833, -0.023949118, -0.9840714, -0.17677703, -0.018805709, -0.29451442, -0.24865165, -0.473067)
+transform = Transform3D(0.014268912, 0.026900113, -0.9995364, 0.17720087, -0.9838833, -0.023949118, -0.9840714, -0.17677703, -0.018805709, -0.34175727, -0.5974565, -0.45283526)
 script = ExtResource("2_dqkch")
 SECONDS_PER_BATTERY_BAR = 1
 NORMAL_POSITION = Vector3(-0.29451442, -0.24865165, -0.473067)
 REST_POSITION = Vector3(-0.34175727, -0.5974565, -0.45283526)
 
 [node name="Mesh" type="Node3D" parent="Head/Camera3D/FlashLight" unique_id=1223794671]
+transform = Transform3D(0.9999163, -0.00090663135, 0.012894203, 0.0018263906, 0.997439, -0.07149753, -0.012796363, 0.07151511, 0.9973574, 0, 0, 0)
 
-[node name="Body" type="MeshInstance3D" parent="Head/Camera3D/FlashLight/Mesh" unique_id=107425218]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/FlashLight/Mesh" unique_id=107425218]
 transform = Transform3D(0.1, 0, 3.7252903e-09, 0, -3.3178367e-09, -0.10000001, 2.3283064e-10, 0.1, -4.947651e-09, 0, 0, 0)
 mesh = SubResource("ArrayMesh_qlg0r")
 
@@ -208,10 +301,14 @@ mesh = SubResource("ArrayMesh_qlg0r")
 transform = Transform3D(0.100000046, -1.8626451e-09, 3.7252903e-09, 1.8626451e-09, -3.434252e-09, -0.10000001, 2.0954758e-09, 0.10000005, -4.947651e-09, -0.32033682, -1.4901161e-08, -0.00087824464)
 mesh = SubResource("ArrayMesh_tuyoq")
 
+[node name="Button" type="MeshInstance3D" parent="Head/Camera3D/FlashLight/Mesh" unique_id=1360814277]
+transform = Transform3D(0.4993755, -0.0016081855, -0.024924094, -0.0011031628, -0.49989575, 0.010153467, -0.024951573, -0.010085798, -0.49927524, -0.23562849, 0.034038767, 0.0031219125)
+mesh = SubResource("ArrayMesh_oprun")
+
 [node name="Light" type="SpotLight3D" parent="Head/Camera3D/FlashLight" unique_id=1473857831]
 transform = Transform3D(-0.0049730306, -0.22061649, -0.97534776, -0.0006613869, 0.97536045, -0.22061594, 0.99998724, -0.00045195426, -0.0049963733, 0.004149556, 0.007822767, -0.2906739)
 light_color = Color(0.84723485, 0.8229753, 0.6208867, 1)
-light_energy = 7.0
+light_energy = 0.0
 distance_fade_enabled = true
 spot_range = 25.0
 spot_attenuation = 3.0
@@ -237,21 +334,25 @@ collide_with_areas = true
 [node name="BatteryBar" type="Control" parent="HUD" unique_id=183333021]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -454.0
-offset_top = 80.0
-offset_right = -454.0
-offset_bottom = 80.0
+offset_left = -479.0
+offset_top = 157.0
+offset_right = -479.0
+offset_bottom = 157.0
 script = ExtResource("6_smehm")
 
 [node name="1" type="Control" parent="HUD/BatteryBar" unique_id=952190756]
+modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 0.80784315)
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 479.0
+offset_top = -157.0
+offset_right = 519.0
+offset_bottom = -117.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/1" unique_id=1981192413]
 visible = false
 position = Vector2(467, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
@@ -259,7 +360,7 @@ region_rect = Rect2(48, 72, 312, 464)
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/1" unique_id=1213328230]
 visible = false
 position = Vector2(467, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
@@ -267,7 +368,7 @@ region_rect = Rect2(416, 72, 312, 464)
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/1" unique_id=1199153491]
 visible = false
 position = Vector2(467, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
@@ -275,53 +376,65 @@ region_rect = Rect2(784, 72, 312, 464)
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/1" unique_id=209016674]
 visible = false
 position = Vector2(467, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(1152, 72, 320, 464)
 
 [node name="2" type="Control" parent="HUD/BatteryBar" unique_id=151570054]
+modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 0.80784315)
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 479.0
+offset_top = -157.0
+offset_right = 519.0
+offset_bottom = -117.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/2" unique_id=1013167588]
+visible = false
 position = Vector2(487, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/2" unique_id=1147003966]
+visible = false
 position = Vector2(487, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/2" unique_id=406776290]
+visible = false
 position = Vector2(487, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/2" unique_id=1964023476]
+visible = false
 position = Vector2(487, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(1152, 72, 320, 464)
 
 [node name="3" type="Control" parent="HUD/BatteryBar" unique_id=604784086]
+modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 0.80784315)
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 479.0
+offset_top = -157.0
+offset_right = 519.0
+offset_bottom = -117.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/3" unique_id=1413597679]
 visible = false
 position = Vector2(507, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
@@ -329,7 +442,7 @@ region_rect = Rect2(48, 72, 312, 464)
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/3" unique_id=1368527743]
 visible = false
 position = Vector2(507, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
@@ -337,7 +450,7 @@ region_rect = Rect2(416, 72, 312, 464)
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/3" unique_id=1997481649]
 visible = false
 position = Vector2(507, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
@@ -345,20 +458,24 @@ region_rect = Rect2(784, 72, 312, 464)
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/3" unique_id=1688171788]
 visible = false
 position = Vector2(507, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(1152, 72, 320, 464)
 
 [node name="4" type="Control" parent="HUD/BatteryBar" unique_id=1850581084]
+modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 0.80784315)
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 479.0
+offset_top = -157.0
+offset_right = 519.0
+offset_bottom = -117.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/4" unique_id=741981388]
 visible = false
 position = Vector2(527, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
@@ -366,7 +483,7 @@ region_rect = Rect2(48, 72, 312, 464)
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/4" unique_id=948697110]
 visible = false
 position = Vector2(527, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
@@ -374,7 +491,7 @@ region_rect = Rect2(416, 72, 312, 464)
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/4" unique_id=730654218]
 visible = false
 position = Vector2(527, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
@@ -382,20 +499,25 @@ region_rect = Rect2(784, 72, 312, 464)
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/4" unique_id=1170453085]
 visible = false
 position = Vector2(527, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(1152, 72, 320, 464)
 
 [node name="5" type="Control" parent="HUD/BatteryBar" unique_id=1659729066]
+modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 0.80784315)
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 479.0
+offset_top = -157.0
+offset_right = 519.0
+offset_bottom = -117.0
+script = ExtResource("12_f1ej7")
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/5" unique_id=1172282961]
 visible = false
 position = Vector2(547, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
@@ -403,7 +525,7 @@ region_rect = Rect2(48, 72, 312, 464)
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/5" unique_id=759076117]
 visible = false
 position = Vector2(547, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
@@ -411,7 +533,7 @@ region_rect = Rect2(416, 72, 312, 464)
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/5" unique_id=665856692]
 visible = false
 position = Vector2(547, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
@@ -419,20 +541,24 @@ region_rect = Rect2(784, 72, 312, 464)
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/5" unique_id=1220978376]
 visible = false
 position = Vector2(547, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(1152, 72, 320, 464)
 
 [node name="6" type="Control" parent="HUD/BatteryBar" unique_id=273803794]
+modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 0.80784315)
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 479.0
+offset_top = -157.0
+offset_right = 519.0
+offset_bottom = -117.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/6" unique_id=977652160]
 visible = false
 position = Vector2(567, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
@@ -440,7 +566,7 @@ region_rect = Rect2(48, 72, 312, 464)
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/6" unique_id=1966712791]
 visible = false
 position = Vector2(567, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
@@ -448,7 +574,7 @@ region_rect = Rect2(416, 72, 312, 464)
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/6" unique_id=546519251]
 visible = false
 position = Vector2(567, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
@@ -456,20 +582,24 @@ region_rect = Rect2(784, 72, 312, 464)
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/6" unique_id=1823712493]
 visible = false
 position = Vector2(567, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(1152, 72, 320, 464)
 
 [node name="7" type="Control" parent="HUD/BatteryBar" unique_id=728251803]
+modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 0.80784315)
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 479.0
+offset_top = -157.0
+offset_right = 519.0
+offset_bottom = -117.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/7" unique_id=1549641534]
 visible = false
 position = Vector2(587, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
@@ -477,7 +607,7 @@ region_rect = Rect2(48, 72, 312, 464)
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/7" unique_id=2067182581]
 visible = false
 position = Vector2(587, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
@@ -485,7 +615,7 @@ region_rect = Rect2(416, 72, 312, 464)
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/7" unique_id=406840268]
 visible = false
 position = Vector2(587, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
@@ -493,20 +623,24 @@ region_rect = Rect2(784, 72, 312, 464)
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/7" unique_id=2019644830]
 visible = false
 position = Vector2(587, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(1152, 72, 320, 464)
 
 [node name="8" type="Control" parent="HUD/BatteryBar" unique_id=1093399594]
+modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 0.80784315)
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 479.0
+offset_top = -157.0
+offset_right = 519.0
+offset_bottom = -117.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/8" unique_id=128808338]
 visible = false
 position = Vector2(607, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
@@ -514,7 +648,7 @@ region_rect = Rect2(48, 72, 312, 464)
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/8" unique_id=785233039]
 visible = false
 position = Vector2(607, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
@@ -522,7 +656,7 @@ region_rect = Rect2(416, 72, 312, 464)
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/8" unique_id=1126369268]
 visible = false
 position = Vector2(607, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
@@ -530,20 +664,24 @@ region_rect = Rect2(784, 72, 312, 464)
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/8" unique_id=1140944788]
 visible = false
 position = Vector2(607, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(1152, 72, 320, 464)
 
 [node name="9" type="Control" parent="HUD/BatteryBar" unique_id=1018867494]
+modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
+self_modulate = Color(0.6955032, 0.6955031, 0.6955031, 0.80784315)
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 479.0
+offset_top = -157.0
+offset_right = 519.0
+offset_bottom = -117.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/9" unique_id=972846662]
 visible = false
 position = Vector2(627, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
@@ -551,7 +689,7 @@ region_rect = Rect2(48, 72, 312, 464)
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/9" unique_id=2005167316]
 visible = false
 position = Vector2(627, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
@@ -559,7 +697,7 @@ region_rect = Rect2(416, 72, 312, 464)
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/9" unique_id=888146957]
 visible = false
 position = Vector2(627, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
@@ -567,7 +705,7 @@ region_rect = Rect2(784, 72, 312, 464)
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/9" unique_id=882876403]
 visible = false
 position = Vector2(627, 551.6)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(1152, 72, 320, 464)
@@ -613,8 +751,12 @@ text = "Press E to Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CRT-Shader" type="CanvasLayer" parent="." unique_id=209769038]
+layer = 2
+script = ExtResource("15_oprun")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CRT-Shader" unique_id=647913816]
+mesh = SubResource("QuadMesh_f1ej7")
+
 [node name="Simple Animations" type="AnimationPlayer" parent="." unique_id=1372057973]
 libraries/ = SubResource("AnimationLibrary_smehm")
-
-[node name="Crouch Check" type="RayCast3D" parent="." unique_id=981016428]
-target_position = Vector3(0, 1, 0)

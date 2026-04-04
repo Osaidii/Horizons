@@ -18,10 +18,16 @@ config/icon="res://icon.svg"
 [autoload]
 
 Shortcuts="*uid://ce0s12mq2ax81"
+Utilities="*uid://cj4c62ilw838c"
+GlobalVariables="*uid://c1lpgvabr2yjg"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/resizable=false
+window/size/borderless=true
+window/stretch/mode="viewport"
 
 [editor_plugins]
 

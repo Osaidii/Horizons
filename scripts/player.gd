@@ -131,16 +131,17 @@ func _interact() -> void:
 
 # Public Funcs
 
-func crouch(state) -> void:
-	if state == true:
-		simple_animations.play("crouch")
+func crouch(crouch_state) -> void:
+	# Crocu and Uncrouch
+	if crouch_state == true:
+		simple_animations.play("Crouch")
 		is_crouching = true
 		await get_tree().create_timer(0.2).timeout
 		current_speed = CROUCH_SPEED
 	else:
 		if crouch_check.is_colliding():
 			return
-		simple_animations.play_backwards("crouch")
+		simple_animations.play_backwards("Crouch")
 		await get_tree().create_timer(0.2).timeout
 		current_speed = SPEED
 		is_crouching = false
