@@ -4,12 +4,16 @@ extends Node3D
 @export_category("Data")
 @export var ENERGY := 5
 @export var SECONDS_PER_BATTERY_BAR := 20
+@export var START_BATTERY := 12
+@export var MAX_BATTERY := 36
 @export var WAIT_TIME := 1
 @export var TRANSITION_TIME := 0.7
 @export_category("Normal Transform")
 @export var NORMAL_POSITION := Vector3.ZERO
 @export_category("Rest Transform")
 @export var REST_POSITION := Vector3.ZERO
+@export_category("External")
+@export var BATTERY := 14
 
 @onready var light: SpotLight3D = $Light
 @onready var mesh: Node3D = $Mesh
@@ -27,6 +31,8 @@ func _ready() -> void:
 	light.light_energy = 0
 	# Wait Timer
 	wait_timer.wait_time = WAIT_TIME
+	# Set Battery
+	BATTERY = START_BATTERY
 
 func _input(event: InputEvent) -> void:
 	# Turn Light On
@@ -42,6 +48,11 @@ func _process(delta: float) -> void:
 		is_light_on = true
 	elif light.light_energy == 0:
 		is_light_on = false
+	
+	# Increase Battery
+	if Shortcuts.increase_flashlight_battery > 0:
+		increase_battery(Shortcuts.increase_flashlight_battery)
+		Shortcuts.increase_flashlight_battery = 0
 
 # Public Funcs
 
@@ -68,3 +79,7 @@ func turn_light_off() -> void:
 	await get_tree().create_timer(0.1).timeout
 	light.light_energy = 0
 	is_light_on = false
+
+func increase_battery(increase) -> void:
+	# Increase Battery
+	BATTERY += increase

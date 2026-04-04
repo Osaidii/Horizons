@@ -13,6 +13,7 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vyb7"]
+height = 1.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c2tp7"]
 resource_name = "Flash Light"
@@ -113,18 +114,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0.49078333, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Collision:shape:height")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2.0]
 }
 
 [sub_resource type="Animation" id="Animation_fjrip"]
@@ -249,7 +238,7 @@ offset_bottom = 40.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/1" unique_id=1981192413]
 visible = false
-position = Vector2(467, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -257,7 +246,7 @@ region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/1" unique_id=1213328230]
 visible = false
-position = Vector2(467, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -265,7 +254,7 @@ region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/1" unique_id=1199153491]
 visible = false
-position = Vector2(467, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -273,7 +262,7 @@ region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/1" unique_id=209016674]
 visible = false
-position = Vector2(467, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -285,28 +274,32 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/2" unique_id=1013167588]
-position = Vector2(487, 551.6)
+visible = false
+position = Vector2(483, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/2" unique_id=1147003966]
-position = Vector2(487, 551.6)
+visible = false
+position = Vector2(483, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/2" unique_id=406776290]
-position = Vector2(487, 551.6)
+visible = false
+position = Vector2(483, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
 region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/2" unique_id=1964023476]
-position = Vector2(487, 551.6)
+visible = false
+position = Vector2(483, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -319,7 +312,7 @@ offset_bottom = 40.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/3" unique_id=1413597679]
 visible = false
-position = Vector2(507, 551.6)
+position = Vector2(502, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -327,7 +320,7 @@ region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/3" unique_id=1368527743]
 visible = false
-position = Vector2(507, 551.6)
+position = Vector2(502, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -335,7 +328,7 @@ region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/3" unique_id=1997481649]
 visible = false
-position = Vector2(507, 551.6)
+position = Vector2(502, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -343,7 +336,7 @@ region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/3" unique_id=1688171788]
 visible = false
-position = Vector2(507, 551.6)
+position = Vector2(502, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -356,7 +349,7 @@ offset_bottom = 40.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/4" unique_id=741981388]
 visible = false
-position = Vector2(527, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -364,7 +357,7 @@ region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/4" unique_id=948697110]
 visible = false
-position = Vector2(527, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -372,7 +365,7 @@ region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/4" unique_id=730654218]
 visible = false
-position = Vector2(527, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -380,7 +373,7 @@ region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/4" unique_id=1170453085]
 visible = false
-position = Vector2(527, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -393,7 +386,7 @@ offset_bottom = 40.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/5" unique_id=1172282961]
 visible = false
-position = Vector2(547, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -401,7 +394,7 @@ region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/5" unique_id=759076117]
 visible = false
-position = Vector2(547, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -409,7 +402,7 @@ region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/5" unique_id=665856692]
 visible = false
-position = Vector2(547, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -417,7 +410,7 @@ region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/5" unique_id=1220978376]
 visible = false
-position = Vector2(547, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -430,7 +423,7 @@ offset_bottom = 40.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/6" unique_id=977652160]
 visible = false
-position = Vector2(567, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -438,7 +431,7 @@ region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/6" unique_id=1966712791]
 visible = false
-position = Vector2(567, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -446,7 +439,7 @@ region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/6" unique_id=546519251]
 visible = false
-position = Vector2(567, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -454,7 +447,7 @@ region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/6" unique_id=1823712493]
 visible = false
-position = Vector2(567, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -467,7 +460,7 @@ offset_bottom = 40.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/7" unique_id=1549641534]
 visible = false
-position = Vector2(587, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -475,7 +468,7 @@ region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/7" unique_id=2067182581]
 visible = false
-position = Vector2(587, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -483,7 +476,7 @@ region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/7" unique_id=406840268]
 visible = false
-position = Vector2(587, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -491,7 +484,7 @@ region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/7" unique_id=2019644830]
 visible = false
-position = Vector2(587, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -504,7 +497,7 @@ offset_bottom = 40.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/8" unique_id=128808338]
 visible = false
-position = Vector2(607, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -512,7 +505,7 @@ region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/8" unique_id=785233039]
 visible = false
-position = Vector2(607, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -520,7 +513,7 @@ region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/8" unique_id=1126369268]
 visible = false
-position = Vector2(607, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -528,7 +521,7 @@ region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/8" unique_id=1140944788]
 visible = false
-position = Vector2(607, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -541,7 +534,7 @@ offset_bottom = 40.0
 
 [node name="1-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/9" unique_id=972846662]
 visible = false
-position = Vector2(627, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -549,7 +542,7 @@ region_rect = Rect2(48, 72, 312, 464)
 
 [node name="2-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/9" unique_id=2005167316]
 visible = false
-position = Vector2(627, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -557,7 +550,7 @@ region_rect = Rect2(416, 72, 312, 464)
 
 [node name="3-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/9" unique_id=888146957]
 visible = false
-position = Vector2(627, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true
@@ -565,7 +558,7 @@ region_rect = Rect2(784, 72, 312, 464)
 
 [node name="4-4 Icon" type="Sprite2D" parent="HUD/BatteryBar/9" unique_id=882876403]
 visible = false
-position = Vector2(627, 551.6)
+position = Vector2(465, 553.6)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("7_ur7pv")
 region_enabled = true

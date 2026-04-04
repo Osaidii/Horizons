@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://vkghn8i5nt7m"]
+
+[ext_resource type="Texture2D" uid="uid://luq258vtismx" path="res://icon.svg" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://d3duyjui5y1aj" path="res://scenes/player.tscn" id="2_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://dw4hlf8g0xwx1" path="res://scenes/battery.tscn" id="3_4wyf3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwgxs"]
+albedo_texture = ExtResource("1_nnsk1")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[node name="World" type="Node3D" unique_id=1076158626]
+
+[node name="Player" parent="." unique_id=989809469 instance=ExtResource("2_rwgxs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76699615, 2)
+
+[node name="Battery" parent="." unique_id=1838336097 instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95181537, 0.7903054, -0.46712685)
+
+[node name="World" type="Node3D" parent="." unique_id=245499697]
+transform = Transform3D(-0.041666407, -0.9972562, 0.06118701, 0, 0.061240193, 0.99812305, -0.99913156, 0.041588202, -0.0025516588, 11.910353, 1.5990486, -2.0903673)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World" unique_id=1154814641]
+transform = Transform3D(-0.04166652, 2.3283067e-10, -0.9991351, -0.99725634, 0.0612402, 0.041588336, 0.061187085, 0.9981231, -0.0025516676, -0.90999573, 12.133191, -2.7586432)
+material_override = SubResource("StandardMaterial3D_rwgxs")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(26.341278, 0.1772461, 27.77301)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World" unique_id=1502799044]
+transform = Transform3D(-0.041666456, 0.9972563, -0.061187014, -0.99725634, -0.037759785, 0.063672215, 0.061187062, 0.063672215, 0.9960934, 11.787088, 12.058795, -0.739872)
+material_override = SubResource("StandardMaterial3D_rwgxs")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(25.124847, 0.1772461, 6.960846)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World" unique_id=921692038]
+transform = Transform3D(-0.04166641, 0.9972563, -0.061187014, -0.99725634, -0.037759785, 0.063672125, 0.061187018, 0.063672125, 0.9960934, -14.398397, 12.679448, -0.7779522)
+material_override = SubResource("StandardMaterial3D_rwgxs")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(26.064392, 0.1772461, 6.960846)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="World" unique_id=486737533]
+transform = Transform3D(1, 0, 2.7939677e-09, 0, 1, 1.3393583e-07, 0, -2.910383e-10, 1, -0.586576, 24.55334, -1.506479)
+material_override = SubResource("StandardMaterial3D_rwgxs")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(27.305202, 0.1772461, 6.960846)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="World" unique_id=801261057]
+transform = Transform3D(1, 0, 3.259629e-09, 0, 1, 1.6376725e-07, 0, -2.910383e-10, 1, -2.0635812, 3.8146973e-06, 0)
+material_override = SubResource("StandardMaterial3D_rwgxs")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(27.15939, 0.1772461, 6.960846)
