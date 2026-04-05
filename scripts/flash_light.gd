@@ -75,7 +75,7 @@ func _process(delta: float) -> void:
 func turn_light_on() -> void:
 	if !GlobalVariables.flash_light_unlocked: return
 	# Tween for Up and Down
-	var tween = create_tween()
+	var tween := create_tween()
 	tween.tween_property(self, "position", NORMAL_POSITION + Vector3(0, 0.02, 0), TRANSITION_TIME * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "position", NORMAL_POSITION, TRANSITION_TIME * 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	wait_timer.start()
@@ -90,7 +90,7 @@ func turn_light_off() -> void:
 	if !GlobalVariables.flash_light_unlocked: return
 	wait_timer.start()
 	# Tween for Up and Down
-	var tween = create_tween()
+	var tween := create_tween()
 	tween.tween_property(self, "position", REST_POSITION, TRANSITION_TIME * 0.75).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	# Turn Light Off
 	await get_tree().create_timer(0.1).timeout

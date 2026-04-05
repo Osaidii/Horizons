@@ -21,7 +21,7 @@ extends CharacterBody3D
 var t_bob := 0.0
 var is_crouching := false
 var current_speed: float
-var direction
+var direction: Vector3
 
 # Private Funcs
 
@@ -110,7 +110,7 @@ func _interact() -> void:
 		var is_interactable: bool
 		var node_that_is_interactable
 		if !is_pickable:
-			var interact_answer_array = _interact_check(target)
+			var interact_answer_array: Array = _interact_check(target)
 			is_interactable = interact_answer_array[0]
 			node_that_is_interactable = interact_answer_array[1]
 		

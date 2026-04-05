@@ -25,7 +25,6 @@ GlobalVariables="*uid://c1lpgvabr2yjg"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/resizable=false
 window/size/borderless=true
 window/stretch/mode="viewport"
 

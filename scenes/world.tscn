@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://vkghn8i5nt7m"]
 
+[ext_resource type="Script" uid="uid://cc1rvm0kd37t4" path="res://scripts/gameplay.gd" id="1_k0juu"]
 [ext_resource type="Texture2D" uid="uid://luq258vtismx" path="res://icon.svg" id="1_nnsk1"]
-[ext_resource type="PackedScene" uid="uid://d3duyjui5y1aj" path="res://scenes/player.tscn" id="2_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://bgu81rrpf1ilt" path="res://scenes/player.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://dw4hlf8g0xwx1" path="res://scenes/battery.tscn" id="3_4wyf3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwgxs"]
@@ -10,6 +11,7 @@ uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 
 [node name="World" type="Node3D" unique_id=1076158626]
+script = ExtResource("1_k0juu")
 
 [node name="Player" parent="." unique_id=989809469 instance=ExtResource("2_rwgxs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76699615, 2)

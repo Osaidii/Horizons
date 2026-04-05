@@ -149,12 +149,6 @@ shadow_mesh = SubResource("ArrayMesh_djlrk")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qfm1y"]
 shader = ExtResource("16_a8ls1")
 shader_parameter/disable = false
-shader_parameter/curvature = 6.0
-shader_parameter/blur = 0.1
-shader_parameter/line_alpha = 0.1
-shader_parameter/line_subtleness = 1.0
-shader_parameter/vignette_multiplier = 0.6
-shader_parameter/vignette_border = 7.0
 shader_parameter/hori_res = 0.0
 shader_parameter/vert_res = 0.0
 
@@ -299,6 +293,7 @@ transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 [node name="FlashLight" type="Node3D" parent="Head/Camera3D" unique_id=162626823]
 transform = Transform3D(0.014268912, 0.026900113, -0.9995364, 0.17720087, -0.9838833, -0.023949118, -0.9840714, -0.17677703, -0.018805709, -0.34175727, -0.5974565, -0.45283526)
 script = ExtResource("2_dqkch")
+SECONDS_PER_BATTERY_BAR = 1
 NORMAL_POSITION = Vector3(-0.29451442, -0.24865165, -0.473067)
 REST_POSITION = Vector3(-0.34175727, -0.5974565, -0.45283526)
 
@@ -766,7 +761,7 @@ vertical_alignment = 1
 layer = 2
 script = ExtResource("15_oprun")
 
-[node name="Shader Mesh" type="MeshInstance2D" parent="CRT-Shader" unique_id=647913816]
+[node name="Quad Mesh" type="MeshInstance2D" parent="CRT-Shader" unique_id=647913816]
 material = SubResource("ShaderMaterial_qfm1y")
 mesh = SubResource("QuadMesh_f1ej7")
 

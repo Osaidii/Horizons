@@ -8,3 +8,5 @@ func _ready() -> void:
 func _on_resize() -> void:
 	# Update Resolution
 	Utilities.update_resolution()
+	# Set CRT Shader Values
+	$"../../../CRT-Shader".set_values()
