@@ -5,9 +5,27 @@ extends CharacterBody3D
 @export var SPEED := 4.0
 @export var CROUCH_SPEED := 2.2
 @export var SENSITIVITY := 0.003
-@export_category("HEAD BOB")
+@export_category("Head Bob")
 @export var BOB_FREQ := 2.2
 @export var BOB_AMP := 0.08
+@export_category("Enables")
+@export var FLASH_LIGHT_UNLOCKED := true
+@export var DISABLE_CRT_SHADER := false
+@export_category("Shader")
+@export var curvature = 6.0
+@export var blur = 0.1
+@export var line_alpha = 0.1
+@export var line_subtleness = 1.0
+@export var vignette_multiplier = 0.6
+@export var vignette_border := 7.0
+@export_category("Flash Light")
+@export var ENERGY := 5
+@export var SECONDS_PER_BATTERY_BAR := 20
+@export var START_BATTERY := 12
+@export var MAX_BATTERY := 36
+@export var WAIT_TIME := 1
+@export var TRANSITION_TIME := 0.7
+
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D

@@ -1,45 +1,38 @@
 class_name Flashlight
 extends Node3D
 
-@export_category("Data")
-@export var ENERGY := 5
-@export var SECONDS_PER_BATTERY_BAR := 20
-@export var START_BATTERY := 12
-@export var MAX_BATTERY := 36
-@export var WAIT_TIME := 1
-@export var TRANSITION_TIME := 0.7
 @export_category("Normal Transform")
 @export var NORMAL_POSITION := Vector3.ZERO
 @export_category("Rest Transform")
 @export var REST_POSITION := Vector3.ZERO
-@export_category("External")
-@export var BATTERY := 0
 
 @onready var light: SpotLight3D = $Light
 @onready var mesh: Node3D = $Mesh
 @onready var wait_timer: Timer = $"Wait Time"
 @onready var button_sound: AudioStreamPlayer3D = $"Button Sound"
 @onready var simple_animations: AnimationPlayer = $"../../../Simple Animations"
+@onready var player: Player = $"../../.." as Player
 
 var is_light_on := false
 var decrease_time := 0.0
+var BATTERY := 0
 
 # Private Funcs
 
 func _ready() -> void:
-	if !GlobalVariables.flash_light_unlocked: return
+	if !player.flash_light_unlocked: return
 	# Set Position
 	position = REST_POSITION
 	# Set Light
 	light.light_energy = 0
 	# Wait Timer
-	wait_timer.wait_time = WAIT_TIME
+	wait_timer.wait_time = player.WAIT_TIME
 	# Set Battery
-	BATTERY = START_BATTERY
-	decrease_time = SECONDS_PER_BATTERY_BAR
+	BATTERY = player.START_BATTERY
+	decrease_time = player.SECONDS_PER_BATTERY_BAR
 
 func _input(event: InputEvent) -> void:
-	if !GlobalVariables.flash_light_unlocked: return
+	if !player.flash_light_unlocked: return
 	# Turn Light On
 	if event.is_action_pressed("flashlight") and is_light_on and wait_timer.is_stopped():
 		turn_light_off()
@@ -48,9 +41,9 @@ func _input(event: InputEvent) -> void:
 		turn_light_on()
 
 func _process(delta: float) -> void:
-	if !GlobalVariables.flash_light_unlocked: return
+	if !player.flash_light_unlocked: return
 	# Battery ON / OFF Logic
-	if light.light_energy == ENERGY:
+	if light.light_energy == player.ENERGY:
 		is_light_on = true
 	elif light.light_energy == 0:
 		is_light_on = false
@@ -61,37 +54,38 @@ func _process(delta: float) -> void:
 		Shortcuts.increase_flashlight_battery = 0
 	
 	# Max and Min Battery
-	BATTERY = clamp(BATTERY, 0, MAX_BATTERY)
+	BATTERY = clamp(BATTERY, 0, player.MAX_BATTERY)
 	
 	# Decrease Battery Logic
-	if decrease_time <= 0.0:
-		decrease_time = SECONDS_PER_BATTERY_BAR
-		BATTERY -= 1
-	else:
-		decrease_time -= delta
+	if is_light_on:
+		if decrease_time <= 0.0:
+			decrease_time = player.SECONDS_PER_BATTERY_BAR
+			BATTERY -= 1
+		else:
+			decrease_time -= delta
 
 # Public Funcs
 
 func turn_light_on() -> void:
-	if !GlobalVariables.flash_light_unlocked: return
+	if !player.flash_light_unlocked: return
 	# Tween for Up and Down
 	var tween := create_tween()
-	tween.tween_property(self, "position", NORMAL_POSITION + Vector3(0, 0.02, 0), TRANSITION_TIME * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "position", NORMAL_POSITION, TRANSITION_TIME * 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "position", NORMAL_POSITION + Vector3(0, 0.02, 0), player.TRANSITION_TIME * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "position", NORMAL_POSITION, player.TRANSITION_TIME * 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	wait_timer.start()
-	await get_tree().create_timer(TRANSITION_TIME / 2).timeout
+	await get_tree().create_timer(player.TRANSITION_TIME / 2).timeout
 	# Turn Light On
 	simple_animations.play("Light Button Click")
 	button_sound.play()
-	light.light_energy = ENERGY
+	light.light_energy = player.ENERGY
 	is_light_on = true
 
 func turn_light_off() -> void:
-	if !GlobalVariables.flash_light_unlocked: return
+	if !player.flash_light_unlocked: return
 	wait_timer.start()
 	# Tween for Up and Down
 	var tween := create_tween()
-	tween.tween_property(self, "position", REST_POSITION, TRANSITION_TIME * 0.75).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "position", REST_POSITION, player.TRANSITION_TIME * 0.75).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	# Turn Light Off
 	await get_tree().create_timer(0.1).timeout
 	simple_animations.play("Light Button Click")
@@ -101,6 +95,6 @@ func turn_light_off() -> void:
 	is_light_on = false
 
 func increase_battery(increase) -> void:
-	if !GlobalVariables.flash_light_unlocked: return
+	if !player.flash_light_unlocked: return
 	# Increase Battery
 	BATTERY += increase

@@ -1,6 +1,7 @@
 extends Control
 
 @onready var flash_light: Flashlight = $"../../Head/Camera3D/FlashLight"
+@onready var player: Player = $"../.." as Player
 
 @export var BAR_SCALE := 0.075
 @export var X_OFFSET := 25
@@ -10,7 +11,7 @@ extends Control
 var previous_battery := 0
 
 func _ready() -> void:
-	if !GlobalVariables.flash_light_unlocked: return
+	if !player.flash_light_unlocked: return
 	
 	previous_battery = flash_light.BATTERY
 	_number_to_output()
