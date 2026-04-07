@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://vkghn8i5nt7m"]
 
+[ext_resource type="Script" uid="uid://cc1rvm0kd37t4" path="res://scripts/gameplay.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://bgu81rrpf1ilt" path="res://scenes/player.tscn" id="2_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://l10jkf4qspn7" path="res://assets/Intro/Earth Texture.jpg" id="3_1jxku"]
 [ext_resource type="Texture2D" uid="uid://dudvvp56xau5l" path="res://assets/Intro/Big Building/untitled_Color_baseColor.jpg" id="5_7r4gi"]
@@ -15856,19 +15857,202 @@ shadow_mesh = SubResource("ArrayMesh_xbtnv")
 [sub_resource type="BoxShape3D" id="BoxShape3D_kvmu4"]
 size = Vector3(2.7946777, 23.563477, 14.326019)
 
+[sub_resource type="Animation" id="Animation_grmox"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(202.51837, 1.4344949, 23.661125)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Player:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.4609318, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("gate1_movable_gate_m_0:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5707964, 3.1415925, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gate1_movable_gate_m_0:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(17.5812, 0.16522384, 1.0655651)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Player:CAN_CONTROL")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../Cinematics/Black:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../Player:SHOW_HUD")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_xgy6y"]
+resource_name = "cutscene"
+length = 7.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Player:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.0000002, 1.6333336, 6.076667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(202.51837, 1.4344949, 23.661125), Vector3(202.51837, 1.4344949, 23.661125), Vector3(188.472, 1.434, 34.201)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Player:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.0000002, 2.0000002, 4.3, 6.0666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2.4609318, 0), Vector3(0, 1.3779376, 0), Vector3(0, 0.83440554, 0), Vector3(0, 0.6161012, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("gate1_movable_gate_m_0:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(5.5700006),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5707964, 3.1415925, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("gate1_movable_gate_m_0:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5.5700006),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(17.5812, 0.16522384, 1.0655651)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Player:CAN_CONTROL")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../Cinematics/Black:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../Player:SHOW_HUD")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvmu4"]
+_data = {
+&"RESET": SubResource("Animation_grmox"),
+&"cutscene": SubResource("Animation_xgy6y")
+}
+
 [sub_resource type="Environment" id="Environment_1dgkn"]
 background_mode = 1
 background_color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 background_energy_multiplier = 0.2
 
 [node name="Intro" type="Node3D" unique_id=1076158626]
+script = ExtResource("1_k0juu")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1496758773]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+visible = false
 shadow_enabled = true
 
 [node name="Player" parent="." unique_id=989809469 instance=ExtResource("2_rwgxs")]
-transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 298.2083, 7.276552, 5.130604)
+transform = Transform3D(-1.3600247, 0, 1.1012868, 0, 1.75, 0, -1.1012868, 0, -1.3600247, 202.51837, 1.4344949, 23.661125)
 SPEED = 8.0
 CROUCH_SPEED = 4.4
 BOB_FREQ = 1.25
@@ -15905,7 +16089,7 @@ transform = Transform3D(-0.016124902, 0.386664, 1.6991727e-08, -0.38593823, -0.0
 mesh = SubResource("ArrayMesh_dss4m")
 
 [node name="Parking" type="Node3D" parent="Level Build" unique_id=307218552]
-transform = Transform3D(0.08395284, 0.008009167, 1.9165721, 1.5805645, 0.14052244, -0.10182779, -0.09667048, 2.3045006, -0.00045175152, -48.09033, -198.4087, 10.376434)
+transform = Transform3D(0.09765032, 0.008009167, 1.9165721, 1.8384445, 0.14052244, -0.10182779, -0.11244293, 2.3045006, -0.00045175152, -48.27422, -201.87079, 10.5881815)
 
 [node name="Base_atlas_mat_0" type="MeshInstance3D" parent="Level Build/Parking" unique_id=582007981]
 transform = Transform3D(0.010000002, -4.3655746e-09, -8.26015e-07, 8.259915e-07, -3.9264698e-05, 0.009999926, -7.581548e-09, -0.009999923, -3.9264705e-05, 0, 0, 0)
@@ -15916,7 +16100,7 @@ transform = Transform3D(-0.009848079, 0.001736483, 0, 6.2101474e-10, 3.5219474e-
 mesh = SubResource("ArrayMesh_6uqd0")
 
 [node name="gate1_movable_gate_m_0" type="MeshInstance3D" parent="Level Build/Parking" unique_id=1994920164]
-transform = Transform3D(-0.009999999, -8.8766683e-10, -2.842171e-13, -5.684342e-14, 3.5797711e-09, 0.009999998, -8.731149e-10, 0.009999998, -3.5761332e-09, 17.5812, 0.16522384, 1.0655651)
+transform = Transform3D(-0.009999999, -1.5099577e-09, -6.600235e-17, 0, -4.371138e-10, 0.009999998, -1.5099578e-09, 0.009999998, 4.371138e-10, 17.5812, 0.16522384, 1.0655651)
 mesh = SubResource("ArrayMesh_uo0a3")
 
 [node name="gate1_static_gate_m_0" type="MeshInstance3D" parent="Level Build/Parking" unique_id=2047321223]
@@ -18173,10 +18357,26 @@ transform = Transform3D(-1.51922e-08, 2.2870594e-14, -0.076015934, 6.5572547e-15
 shape = SubResource("BoxShape3D_kvmu4")
 
 [node name="Car" parent="." unique_id=500170543 instance=ExtResource("52_1dgkn")]
-transform = Transform3D(-0.7095009, -5.6495586e-09, 0.21025811, -5.51343e-09, 0.74, 1.2788536e-09, -0.21025811, -3.4039946e-10, -0.7095009, 203.16083, 0.696223, 27.722082)
+transform = Transform3D(-0.70037043, -5.6495586e-09, 0.23891678, -5.4569065e-09, 0.74, 1.5018493e-09, -0.23891678, -3.403995e-10, -0.70037043, 205.2739, 0.696223, 26.968285)
 
 [node name="Cutscene" type="AnimationPlayer" parent="." unique_id=953219831]
 root_node = NodePath("../Level Build/Parking")
+libraries/ = SubResource("AnimationLibrary_kvmu4")
+autoplay = &"cutscene"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1590090434]
 environment = SubResource("Environment_1dgkn")
+
+[node name="Cinematics" type="CanvasLayer" parent="." unique_id=1677332057]
+layer = 3
+
+[node name="Black" type="ColorRect" parent="Cinematics" unique_id=2085221680]
+z_index = 1
+anchors_preset = -1
+anchor_right = 32.050003
+anchor_bottom = 18.175001
+offset_right = -1.0001221
+offset_bottom = -5.000061
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

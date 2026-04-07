@@ -158,9 +158,6 @@ shader_parameter/vignette_border = 7.0
 shader_parameter/hori_res = 0.0
 shader_parameter/vert_res = 0.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_f1ej7"]
-size = Vector2(1280, 720)
-
 [sub_resource type="Animation" id="Animation_fjrip"]
 resource_name = "Crouch"
 length = 0.5
@@ -279,6 +276,11 @@ _data = {
 script = ExtResource("1_3vyb7")
 BOB_FREQ = 2.5
 BOB_AMP = 0.06
+CURVATURE = 8.0
+LINE_APLHA = 0.08
+LINE_SUBTLENESS = 0.6
+VIGNETTE_MULTIPLIER = 0.25
+VIGNETTE_BORDER = 4.0
 
 [node name="Capsule" type="MeshInstance3D" parent="." unique_id=2124854759]
 visible = false
@@ -766,9 +768,15 @@ vertical_alignment = 1
 layer = 2
 script = ExtResource("15_oprun")
 
-[node name="Shader Mesh" type="MeshInstance2D" parent="CRT-Shader" unique_id=647913816]
+[node name="Shader Mesh" type="ColorRect" parent="CRT-Shader" unique_id=1727432115]
+visible = false
 material = SubResource("ShaderMaterial_qfm1y")
-mesh = SubResource("QuadMesh_f1ej7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
 
 [node name="Simple Animations" type="AnimationPlayer" parent="." unique_id=1372057973]
 libraries/ = SubResource("AnimationLibrary_smehm")

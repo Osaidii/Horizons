@@ -1,6 +1,8 @@
 shader_type canvas_item;
 render_mode unshaded, skip_vertex_transform;
 
+
+
 uniform sampler2D screen_texture: hint_screen_texture, filter_linear_mipmap;
 uniform bool disable;
 uniform float curvature = 5.0;
@@ -22,13 +24,13 @@ void fragment() {
 	vec3 cutoff = vec3(step(abs(warped_uv.x), 1.0) * step(abs(warped_uv.y), 1.0));
 	
 	// Add Scan Lines and Vignette
-	vec3 scanlines = vec3(sin(2.0 * warped_uv.y * (720.0 / 5.0)) * 0.1 + 0.9);
+	vec3 scanlines = vec3(sin(2.0 * warped_uv.y * (vert_res / 5.0)) * line_alpha + line_subtleness);
 	vec3 vignette = vec3(length(pow(abs(centered_uv), vec2(vignette_border)) / 3.0));
 	
 	// Display Shader on Screen
 	vec3 screen_color = textureLod(screen_texture, (warped_uv + 1.0) / 2.0, blur).rgb * cutoff * scanlines;
 	screen_color -= vignette * vignette_multiplier;
-	if (!disable == true)
+	if (!disable)
 		COLOR = vec4(screen_color, 1.0);
 	else
 		COLOR = vec4(0.0, 0.0, 0.0, 0.0);

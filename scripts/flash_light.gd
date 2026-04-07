@@ -11,7 +11,7 @@ extends Node3D
 @onready var wait_timer: Timer = $"Wait Time"
 @onready var button_sound: AudioStreamPlayer3D = $"Button Sound"
 @onready var simple_animations: AnimationPlayer = $"../../../Simple Animations"
-@onready var player: Player = $"../../.." as Player
+@onready var player: Player = $"../../.."
 
 var is_light_on := false
 var decrease_time := 0.0
@@ -20,7 +20,7 @@ var BATTERY := 0
 # Private Funcs
 
 func _ready() -> void:
-	if !player.flash_light_unlocked: return
+	if !Shortcuts.flash_light_unlocked: return
 	# Set Position
 	position = REST_POSITION
 	# Set Light
@@ -32,7 +32,7 @@ func _ready() -> void:
 	decrease_time = player.SECONDS_PER_BATTERY_BAR
 
 func _input(event: InputEvent) -> void:
-	if !player.flash_light_unlocked: return
+	if !Shortcuts.flash_light_unlocked: return
 	# Turn Light On
 	if event.is_action_pressed("flashlight") and is_light_on and wait_timer.is_stopped():
 		turn_light_off()
@@ -41,7 +41,7 @@ func _input(event: InputEvent) -> void:
 		turn_light_on()
 
 func _process(delta: float) -> void:
-	if !player.flash_light_unlocked: return
+	if !Shortcuts.flash_light_unlocked: return
 	# Battery ON / OFF Logic
 	if light.light_energy == player.ENERGY:
 		is_light_on = true
@@ -67,7 +67,7 @@ func _process(delta: float) -> void:
 # Public Funcs
 
 func turn_light_on() -> void:
-	if !player.flash_light_unlocked: return
+	if !Shortcuts.flash_light_unlocked: return
 	# Tween for Up and Down
 	var tween := create_tween()
 	tween.tween_property(self, "position", NORMAL_POSITION + Vector3(0, 0.02, 0), player.TRANSITION_TIME * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -81,7 +81,7 @@ func turn_light_on() -> void:
 	is_light_on = true
 
 func turn_light_off() -> void:
-	if !player.flash_light_unlocked: return
+	if !Shortcuts.flash_light_unlocked: return
 	wait_timer.start()
 	# Tween for Up and Down
 	var tween := create_tween()
@@ -95,6 +95,6 @@ func turn_light_off() -> void:
 	is_light_on = false
 
 func increase_battery(increase) -> void:
-	if !player.flash_light_unlocked: return
+	if !Shortcuts.flash_light_unlocked: return
 	# Increase Battery
 	BATTERY += increase
