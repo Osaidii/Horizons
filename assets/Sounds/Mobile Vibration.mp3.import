@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dmb63tbsnvmjf"
+path="res://.godot/imported/Mobile Vibration.mp3-cfbddc694234326fd46eebad44d2aeba.mp3str"
+
+[deps]
+
+source_file="res://assets/Sounds/Mobile Vibration.mp3"
+dest_files=["res://.godot/imported/Mobile Vibration.mp3-cfbddc694234326fd46eebad44d2aeba.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

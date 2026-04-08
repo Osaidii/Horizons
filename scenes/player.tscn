@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://bau77h8ti7t8g" path="res://scripts/crosshair.gd" id="6_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://cx4bhnsj5upgv" path="res://assets/Battery Icons.svg" id="7_ur7pv"]
 [ext_resource type="FontFile" uid="uid://c5ngj2wws5wgq" path="res://assets/Game Font.ttf" id="9_ur7pv"]
-[ext_resource type="Script" uid="uid://hvysouldik2c" path="res://storage/crt-shader.gd" id="15_oprun"]
+[ext_resource type="Script" uid="uid://hvysouldik2c" path="res://scripts/crt-shader.gd" id="15_oprun"]
 [ext_resource type="Shader" uid="uid://dx840f7i02kei" path="res://storage/crt-shader.gdshader" id="16_a8ls1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]

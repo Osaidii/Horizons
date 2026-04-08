@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c4doknq1oufxw"
+path="res://.godot/imported/Player 1.mp3-4a7f06f06531d01be225ec8158015b3b.mp3str"
+
+[deps]
+
+source_file="res://assets/Intro/Dialogue/Player 1.mp3"
+dest_files=["res://.godot/imported/Player 1.mp3-4a7f06f06531d01be225ec8158015b3b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

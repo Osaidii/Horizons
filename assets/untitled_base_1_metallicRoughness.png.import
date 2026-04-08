@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3sfhklbqvata"
-path.s3tc="res://.godot/imported/untitled_base_1_metallicRoughness.png-ff852b399f18480cc349dfc3bfee3545.s3tc.ctex"
+path.s3tc="res://.godot/imported/untitled_base_1_metallicRoughness.png-f5435cc50063d7657bb6f02d6706bdca.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/Intro/untitled_base_1_metallicRoughness.png"
-dest_files=["res://.godot/imported/untitled_base_1_metallicRoughness.png-ff852b399f18480cc349dfc3bfee3545.s3tc.ctex"]
+source_file="res://assets/untitled_base_1_metallicRoughness.png"
+dest_files=["res://.godot/imported/untitled_base_1_metallicRoughness.png-f5435cc50063d7657bb6f02d6706bdca.s3tc.ctex"]
 
 [params]
 

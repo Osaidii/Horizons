@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dxy6n6fgq385k"
+path="res://.godot/imported/Call End Sound.mp3-19441e7085c32f2bd7db610b158ce705.mp3str"
+
+[deps]
+
+source_file="res://assets/Sounds/Call End Sound.mp3"
+dest_files=["res://.godot/imported/Call End Sound.mp3-19441e7085c32f2bd7db610b158ce705.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cbirxydh0d280"
+path="res://.godot/imported/Reciver 2.mp3-b2a2b712cd704e276a34ae19d1e1b11b.mp3str"
+
+[deps]
+
+source_file="res://assets/Intro/Dialogue/Reciver 2.mp3"
+dest_files=["res://.godot/imported/Reciver 2.mp3-b2a2b712cd704e276a34ae19d1e1b11b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

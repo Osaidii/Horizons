@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cvnlx3gbpnxgo"
+path="res://.godot/imported/Reciver 3.mp3-6721c0616809d2e3ea82ce0f97b0766d.mp3str"
+
+[deps]
+
+source_file="res://assets/Intro/Dialogue/Reciver 3.mp3"
+dest_files=["res://.godot/imported/Reciver 3.mp3-6721c0616809d2e3ea82ce0f97b0766d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
