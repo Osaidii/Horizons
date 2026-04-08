@@ -30,7 +30,7 @@ void fragment() {
 	// Display Shader on Screen
 	vec3 screen_color = textureLod(screen_texture, (warped_uv + 1.0) / 2.0, blur).rgb * cutoff * scanlines;
 	screen_color -= vignette * vignette_multiplier;
-	if (!disable)
+	if (disable == false)
 		COLOR = vec4(screen_color, 1.0);
 	else
 		COLOR = vec4(0.0, 0.0, 0.0, 0.0);

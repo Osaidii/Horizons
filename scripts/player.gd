@@ -12,7 +12,7 @@ extends CharacterBody3D
 @export_category("Enables")
 @export var FLASH_LIGHT_UNLOCKED := true
 @export var SHOW_HUD := true
-@export var DISABLE_CRT_SHADER := true
+@export var DISABLE_CRT_SHADER := false
 @export_category("Shader")
 @export var CURVATURE = 6.0
 @export var BLUR = 0.1
