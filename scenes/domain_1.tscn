@@ -2,7 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bgu81rrpf1ilt" path="res://scenes/player.tscn" id="2_w6yah"]
 [ext_resource type="PackedScene" uid="uid://duxk6ybnltcoa" path="res://level building/wall_1.tscn" id="2_wlb4j"]
-[ext_resource type="Texture2D" uid="uid://d1g55kmypd4vk" path="res://assets/Domain 1/Backrooms Carpet reddit f_se.jpg" id="3_wlb4j"]
+[ext_resource type="Texture2D" uid="uid://luq258vtismx" path="res://icon.svg" id="3_wlb4j"]
+[ext_resource type="PackedScene" uid="uid://dyyrjwodyaf1i" path="res://level building/appearing_wall.tscn" id="4_h7lqk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wlb4j"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -14,7 +15,7 @@ sky_material = SubResource("ProceduralSkyMaterial_wlb4j")
 [sub_resource type="Environment" id="Environment_be7q5"]
 background_mode = 2
 sky = SubResource("Sky_h7lqk")
-ambient_light_energy = 0.41
+ambient_light_color = Color(1, 1, 1, 1)
 tonemap_mode = 3
 tonemap_exposure = 0.65
 glow_enabled = true
@@ -43,17 +44,22 @@ size = Vector3(0.001, 0.9121094, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_be7q5"]
 size = Vector3(56.763, 4.8721924, 0.001)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf0kl"]
-albedo_color = Color(0.6430441, 0.54479855, 0.22543961, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wxng"]
+albedo_color = Color(0.42172217, 0.41609946, 0.123776145, 1)
+emission_enabled = true
+emission = Color(0.6431373, 0.54509807, 0.22352941, 1)
+emission_energy_multiplier = 0.48
+
+[sub_resource type="BoxMesh" id="BoxMesh_ua7vj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h7lqk"]
 albedo_texture = ExtResource("3_wlb4j")
-uv1_scale = Vector3(5, 5, 5)
+uv1_scale = Vector3(9.48, 9.48, 9.48)
 uv1_triplanar = true
-uv1_triplanar_sharpness = 1.5157167
-uv1_world_triplanar = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_ua7vj"]
+[sub_resource type="BoxMesh" id="BoxMesh_be7q5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lf0kl"]
 
 [node name="Domain 1" type="Node3D" unique_id=446684211]
 
@@ -61,7 +67,8 @@ uv1_world_triplanar = true
 environment = SubResource("Environment_be7q5")
 
 [node name="Player" parent="." unique_id=989809469 instance=ExtResource("2_w6yah")]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -3.750386, 2.5571082, 0.4618969)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -14.298786, 2.5571082, -3.1475856)
+DISABLE_CRT_SHADER = true
 
 [node name="Prototype" type="Node3D" parent="." unique_id=2109753479]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.167217, 1.1067009, -0.20966583)
@@ -298,21 +305,6 @@ transform = Transform3D(-4.9612424e-08, 0, 1.135, 0, 1.135, 0, -1.135, 0, -4.961
 [node name="Wall 25" parent="Level Design/Hallway 1/Wall 3/Meshes" unique_id=389623896 instance=ExtResource("2_wlb4j")]
 transform = Transform3D(-4.9612424e-08, 0, 1.135, 0, 1.135, 0, -1.135, 0, -4.9612424e-08, 50.58185, 1.1936858, 2.1865218)
 
-[node name="Floor" type="Node3D" parent="Level Design/Hallway 1" unique_id=1590589212]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 29.284756, 1.1928747, -0.8760357)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Level Design/Hallway 1/Floor" unique_id=1925435792]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level Design/Hallway 1/Floor/StaticBody3D" unique_id=1479585799]
-transform = Transform3D(1, 0, 0, 0, 0.99999976, -5.684342e-14, 0, 7.460699e-14, 0.99999934, -5.6404724, -0.3241577, 0.022030234)
-shape = SubResource("BoxShape3D_be7q5")
-
-[node name="Mesh" type="MeshInstance3D" parent="Level Design/Hallway 1/Floor" unique_id=919512366]
-transform = Transform3D(57.770252, 0, 0, 0, 4.976886, 1.7763568e-15, 0, 0, 0.17714688, -6.34552, -1.1222367, -0.044437885)
-material_override = SubResource("StandardMaterial3D_lf0kl")
-material_overlay = SubResource("StandardMaterial3D_h7lqk")
-mesh = SubResource("BoxMesh_ua7vj")
-
 [node name="Roof" type="Node3D" parent="Level Design/Hallway 1" unique_id=2008984088]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 29.284756, 4.5123234, -0.42837524)
 
@@ -324,5 +316,32 @@ shape = SubResource("BoxShape3D_be7q5")
 
 [node name="Mesh" type="MeshInstance3D" parent="Level Design/Hallway 1/Roof" unique_id=662830934]
 transform = Transform3D(57.770252, 0, 0, 0, 4.976886, 1.7763568e-15, 0, 0, 0.17714688, -6.34552, -0.6036303, -0.044437885)
-material_override = SubResource("StandardMaterial3D_lf0kl")
+material_override = SubResource("StandardMaterial3D_4wxng")
 mesh = SubResource("BoxMesh_ua7vj")
+
+[node name="Floor" type="Node3D" parent="Level Design/Hallway 1" unique_id=1623272152]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 29.284756, 1.3033378, -0.4283751)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Level Design/Hallway 1/Floor" unique_id=1860427786]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level Design/Hallway 1/Floor/StaticBody3D" unique_id=1401036455]
+transform = Transform3D(1, 0, 0, 0, 0.99999976, -5.684342e-14, 0, 7.460699e-14, 0.99999934, -5.6404724, -0.3241577, 0.022030234)
+shape = SubResource("BoxShape3D_be7q5")
+
+[node name="Mesh" type="MeshInstance3D" parent="Level Design/Hallway 1/Floor" unique_id=371203902]
+transform = Transform3D(57.770252, 0, 0, 0, 4.976886, 1.7763568e-15, 0, 0, 0.17714688, -6.34552, -0.6036303, -0.13276482)
+material_override = SubResource("StandardMaterial3D_4wxng")
+mesh = SubResource("BoxMesh_ua7vj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=6704151]
+transform = Transform3D(14.79704, 0, 0, 0, 0.11756289, 0, 0, 0, 16.536285, -15.876214, 0, 0)
+material_override = SubResource("StandardMaterial3D_h7lqk")
+mesh = SubResource("BoxMesh_be7q5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=307361073]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=238620271]
+shape = SubResource("BoxShape3D_lf0kl")
+
+[node name="Appearing Wall" parent="." unique_id=1456576153 instance=ExtResource("4_h7lqk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.206743, 0.058781624, -4.6299725)

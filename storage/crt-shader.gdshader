@@ -1,10 +1,8 @@
 shader_type canvas_item;
 render_mode unshaded, skip_vertex_transform;
 
-
-
 uniform sampler2D screen_texture: hint_screen_texture, filter_linear_mipmap;
-uniform bool disable;
+uniform bool disable = false;
 uniform float curvature = 5.0;
 uniform float blur = 0.25;
 uniform float line_alpha = 0.1;
@@ -30,8 +28,9 @@ void fragment() {
 	// Display Shader on Screen
 	vec3 screen_color = textureLod(screen_texture, (warped_uv + 1.0) / 2.0, blur).rgb * cutoff * scanlines;
 	screen_color -= vignette * vignette_multiplier;
-	if (disable == false)
+	screen_color = max(screen_color, 0.0);
+	if (!disable)
 		COLOR = vec4(screen_color, 1.0);
 	else
-		COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+		COLOR = texture(screen_texture, SCREEN_UV);
 }

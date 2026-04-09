@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dyyrjwodyaf1i"]
+
+[ext_resource type="Script" uid="uid://diiy4m3tkwwll" path="res://scripts/appearing_wall.gd" id="1_hn6an"]
+[ext_resource type="PackedScene" uid="uid://bt6kpgnchnlrn" path="res://assets/Domain 1/Wall 1.glb" id="2_qfu1v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u7lew"]
+size = Vector3(0.17047119, 2.9784546, 3.9799805)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hn6an"]
+size = Vector3(0.20387268, 3.001709, 3.9749756)
+
+[node name="Appearing Wall" type="Node3D" unique_id=1456576153]
+script = ExtResource("1_hn6an")
+
+[node name="Notifier" type="VisibleOnScreenNotifier3D" parent="." unique_id=2120556805]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13378298, 1.5337411, 1.5093148)
+aabb = AABB(-0.11306856, -1.5284098, -2.0773644, 0.2134418, 3.0568197, 4.154729)
+
+[node name="Static" type="StaticBody3D" parent="." unique_id=1203729659]
+
+[node name="Collision" type="CollisionShape3D" parent="Static" unique_id=237044654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13687134, 1.499115, 1.4748535)
+shape = SubResource("BoxShape3D_u7lew")
+disabled = true
+
+[node name="Meshes" type="Node3D" parent="." unique_id=2145776920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13812554, 0, 0.48852205)
+visible = false
+
+[node name="Wall 1" parent="Meshes" unique_id=1348248926 instance=ExtResource("2_qfu1v")]
+
+[node name="Wall 2" parent="Meshes" unique_id=419119606 instance=ExtResource("2_qfu1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.981519)
+
+[node name="Area" type="Area3D" parent="." unique_id=2111450183]
+
+[node name="Collision" type="CollisionShape3D" parent="Area" unique_id=958327009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12320709, 1.5145091, 1.4874878)
+shape = SubResource("BoxShape3D_hn6an")
+
+[connection signal="screen_entered" from="Notifier" to="." method="_on_screen"]
+[connection signal="screen_exited" from="Notifier" to="." method="_not_on_screen"]
+[connection signal="body_exited" from="Area" to="." method="_on_area_body_exited"]
